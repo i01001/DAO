@@ -106,6 +106,19 @@ describe("Testing the DAO Project Contract", () => {
     });
   });
 
+  it("Checks the voting function in the DAO Project", async () => {
+    await expect(dAO.connect(owner).voting(2, 100, true)).to.be.revertedWith(
+      "proposalIDdoesnotexist())"
+    );
+    await expect(await dAO.connect(owner).voting(1,10000, true)).to.be.revertedWith("insufficentVotingPower()");
+    await expect(await dAO.connect(owner).voting(1,100, true));
+    await expect(await dAO.connect(owner).voting(1,10000, true)).to.be.revertedWith("alreadyVoted()");
+
+    
+    await expect(await dAOT.balanceOf(owner.address)).to.be.equal(9100);
+    await expect(await dAOT.balanceOf(dAO.address)).to.be.equal(900);
+  });
+
   // it("Checks the mint function of the TNETH Contract is working correctly or not", async () => {
   //   await tNETH.mint(owner.address, 1000);
   //     expect(await tNETH.balanceOf(owner.address)).to.be.equal(1000);
