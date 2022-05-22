@@ -137,7 +137,7 @@ describe("Testing the DAO Project Contract", () => {
 
     });
 
-    it("Checks the endProposal function in the DAO Project", async () => {
+    it("Checks the endProposal function with a rejected proposal in the DAO Project", async () => {
       await expect(dAO.connect(owner).endProposal(2)).to.be.revertedWith(
         "proposalIDdoesnotexist()"
       );
@@ -147,6 +147,19 @@ describe("Testing the DAO Project Contract", () => {
       const proposal = await dAO.Proposal(1);
       await expect(await proposal.status).to.be.equal(3);
     });
+
+    it("Checks the endProposal function with an approved proposal in the DAO Project", async () => {
+      await expect(dAO.connect(owner).endProposal(2)).to.be.revertedWith(
+        "proposalIDdoesnotexist()"
+      );
+      await expect(dAO.connect(owner).endProposal(1)).to.be.reverted;
+      evm_increaseTime(3600);
+      await expect(dAO.connect(owner).endProposal(1)).not.reverted;
+      const proposal = await dAO.Proposal(1);
+      await expect(await proposal.status).to.be.equal(3);
+    });
+
+
   });
 });
 // });
