@@ -104,7 +104,7 @@ describe("Testing the DAO Project Contract", () => {
       );
       await expect(await dAO.connect(owner).proposalID()).to.be.equal(1);
     });
-  });
+
 
   it("Checks the voting function in the DAO Project", async () => {
     await expect(dAO.connect(owner).voting(2, 100, true)).to.be.revertedWith(
@@ -115,7 +115,7 @@ describe("Testing the DAO Project Contract", () => {
     ).to.be.revertedWith("insufficentVotingPower()");
     await expect(await dAO.connect(owner).voting(1, 100, true));
     await expect(
-      await dAO.connect(owner).voting(1, 10000, true)
+      await dAO.connect(owner).voting(1, 100, true)
     ).to.be.revertedWith("alreadyVoted()");
 
     // let voterproposalRecord = await dAO
@@ -127,4 +127,6 @@ describe("Testing the DAO Project Contract", () => {
     // console.log(proposalIDlast);
     // await expect(await proposalIDlast).to.be.equal(1);
   });
+});
+
 });
