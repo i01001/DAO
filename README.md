@@ -1,7 +1,9 @@
 # DAO Project
 
 DAO Project Contract: https://rinkeby.etherscan.io/address/0xA0fb24110701198b7E2CA134AF2F822B1c0f8286#code
+
 DAO Token Contract: https://rinkeby.etherscan.io/address/0x6c7824059712cf021c0692176d2d62665832ee3b#code
+
 Test Call Contract: https://rinkeby.etherscan.io/address/0x88a0dd621b87e056d7db03e6a34ed540babc3c4d#code
 
 This project demonstrates an advanced Hardhat use case, integrating other tools commonly used alongside Hardhat in the ecosystem.
