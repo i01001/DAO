@@ -191,7 +191,7 @@ describe("Testing the DAO Project Contract", () => {
       evm_increaseTime(3600);
       await dAO.connect(owner).endProposal(2);
       const status2 = await proposal.status;
-      console.log(status2);
+      console.log(await status2);
       // await expect(await proposal.status).to.be.equal(2);
       await expect(await testCall.temporary()).to.be.equal(100);
     });
