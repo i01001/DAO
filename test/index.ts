@@ -188,9 +188,10 @@ describe("Testing the DAO Project Contract", () => {
       await expect(await proposal.FORvotes).to.be.equal(600);
       await expect(dAO.connect(owner).endProposal(2)).to.be.reverted;
       await expect(await proposal.status).to.be.equal(1);
-      evm_increaseTime(3600);
+      evm_increaseTime(3700);
       await dAO.connect(owner).endProposal(2);
-      await expect(await proposal.status).to.be.equal(2);
+      // await expect(await proposal.status).to.be.equal(2);
+      await expect(await testCall.temporary()).to.be.equal(100);
     });
   });
 });
