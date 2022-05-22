@@ -126,9 +126,9 @@ describe("Testing the DAO Project Contract", () => {
       await expect(dAO.connect(owner).endProposal(2)).to.be.revertedWith(
         "proposalIDdoesnotexist()"
       );
-      await expect(dAO.connect(owner).endProposal(1)).to.be.revertedWith(
-        "waitforProposalEndTime()"
-      );
+      await expect(dAO.connect(owner).endProposal(1)).to.be.reverted;
+      
     });
   });
 });
+// });
