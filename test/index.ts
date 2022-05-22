@@ -110,31 +110,24 @@ describe("Testing the DAO Project Contract", () => {
     await expect(dAO.connect(owner).voting(2, 100, true)).to.be.revertedWith(
       "proposalIDdoesnotexist())"
     );
-    await expect(await dAO.connect(owner).voting(1,10000, true)).to.be.revertedWith("insufficentVotingPower()");
-    await expect(await dAO.connect(owner).voting(1,100, true));
-    await expect(await dAO.connect(owner).voting(1,10000, true)).to.be.revertedWith("alreadyVoted()");
+    await expect(
+      await dAO.connect(owner).voting(1, 10000, true)
+    ).to.be.revertedWith("insufficentVotingPower()");
+    await expect(await dAO.connect(owner).voting(1, 100, true));
+    await expect(
+      await dAO.connect(owner).voting(1, 10000, true)
+    ).to.be.revertedWith("alreadyVoted()");
+
+    // let voterproposalRecord = await dAO
+    //   .connect(owner)
+    //   .Voter[owner.address].toString();
+    let proposalIDlast = await dAO.connect(owner).proposalID();
+
+    // console.log(voterproposalRecord);
+    console.log(proposalIDlast);
+    await expect(await proposalIDlast).to.be.equal(1);
 
     
-    await expect(await dAOT.balanceOf(owner.address)).to.be.equal(9100);
-    await expect(await dAOT.balanceOf(dAO.address)).to.be.equal(900);
-  });
-
-  // it("Checks the mint function of the TNETH Contract is working correctly or not", async () => {
-  //   await tNETH.mint(owner.address, 1000);
-  //     expect(await tNETH.balanceOf(owner.address)).to.be.equal(1000);
-  // })
-
-  // it("Checks the balance function of the TNBSC Contract is correct or not", async () => {
-  //     expect(await tNBSC.balanceOf(owner.address)).to.be.equal(0);
-  // })
-
-  // it("Checks the updateChainById function of the Bridge Contract is working correctly or not", async () => {
-  //     expect(bC.connect(owner).updateChainById(31337, true)).to.be.revertedWith("true");
-  // })
-
-  // it("Checks the includeToken function of the Bridge Contract is working correctly or not", async () => {
-  //   expect(bC.connect(owner).includeToken(31337, "0x0000000000000000000000000000000000000000")).to.be.reverted;
-  //   expect(bC.connect(owner).includeToken(0, signertwo.address)).to.be.reverted;
-  //   expect(bC.connect(owner).includeToken(31337, tNETH.address)).to.be.revertedWith("true");
-  // })
 });
+
+})
