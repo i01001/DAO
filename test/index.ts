@@ -128,7 +128,8 @@ describe("Testing the DAO Project Contract", () => {
       );
       await expect(dAO.connect(owner).endProposal(1)).to.be.reverted;
       evm_increaseTime(3600);
-      await expect(dAO.connect(owner).endProposal(1)).to.not.be.reverted;
+      await expect(dAO.connect(owner).endProposal(1)).not.reverted;
+      
 
     });
   });
