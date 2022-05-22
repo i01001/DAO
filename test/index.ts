@@ -55,7 +55,7 @@ describe("Testing the DAO Project Contract", () => {
 
   describe("Checking DAO Token Contract deposit is working correctly", () => {
     it("Checks the deposit function into the DAO", async () => {
-      expect(await dAO.connect(owner).deposit(100)).to.be.revertedWith("approvalForDAOreq()");
+      await expect(dAO.connect(owner).deposit(100)).to.be.revertedWith("approvalForDAOreq()");
       // expect(await dAOT.balanceOf(owner.address)).to.be.equal(10000);
     });
   })
