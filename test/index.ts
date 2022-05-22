@@ -127,14 +127,13 @@ describe("Testing the DAO Project Contract", () => {
       let time2: any;
       let time3: any;
       let timesum: any;
-      time1 = await (await dAO.debatingPeriodDuration());
+      time1 = await await dAO.debatingPeriodDuration();
       time2 = await proposal.startTime;
       time3 = await voter.endTime;
-      timesum = (time3) - time1;
+      timesum = time3 - time1;
       await expect(timesum).to.be.equal(time2);
 
       await expect(proposal.FORvotes).to.be.equal(100);
-
     });
 
     it("Checks the endProposal function with a rejected proposal in the DAO Project", async () => {
@@ -149,17 +148,46 @@ describe("Testing the DAO Project Contract", () => {
     });
 
     it("Checks the endProposal function with an approved proposal in the DAO Project", async () => {
-      await expect(dAO.connect(owner).endProposal(2)).to.be.revertedWith(
-        "proposalIDdoesnotexist()"
+      var jsonAbi = [
+        {
+          inputs: [],
+          name: "updatevalueoftemp",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "temporary",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ];
+
+      const iface = new ethers.utils.Interface(jsonAbi);
+      const calldata = iface.encodeFunctionData("updatevalueoftemp", []);
+      const description = "Test Function counter";
+
+      await expect(
+        dAO
+          .connect(signertwo)
+          .newProposal(calldata, testCall.address, description)
+      ).to.be.revertedWith("onlyChairPerson()");
+      await expect(
+        dAO.connect(owner).newProposal(calldata, testCall.address, description)
       );
-      await expect(dAO.connect(owner).endProposal(1)).to.be.reverted;
-      evm_increaseTime(3600);
-      await expect(dAO.connect(owner).endProposal(1)).not.reverted;
-      const proposal = await dAO.Proposal(1);
-      await expect(await proposal.status).to.be.equal(3);
+      let proposalIDlast = await (
+        await dAO.connect(owner).proposalID()
+      ).toString();
+      await expect(await proposalIDlast).to.be.equal("2");
+      await expect(dAO.connect(owner).voting(2, 100, true));
+      const voter = await dAO.Voter(owner.address);
+      const proposal = await dAO.Proposal(2);
+
+      await expect(await proposal.status).to.be.equal(1);
+      await expect(await proposal.FORvotes).to.be.equal(100);
+
     });
-
-
   });
 });
 // });
