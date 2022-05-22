@@ -105,28 +105,23 @@ describe("Testing the DAO Project Contract", () => {
       await expect(await dAO.connect(owner).proposalID()).to.be.equal(1);
     });
 
+    it("Checks the voting function in the DAO Project", async () => {
+      await expect(dAO.connect(owner).voting(2, 100, true)).to.be.revertedWith(
+        "proposalIDdoesnotexist()"
+      );
+      await expect(
+        dAO.connect(owner).voting(1, 10000, true)
+      ).to.be.revertedWith("insufficentVotingPower()");
+      await expect(dAO.connect(owner).voting(1, 100, true));
+      await expect(dAO.connect(owner).voting(1, 100, true)).to.be.revertedWith(
+        "alreadyVoted()"
+      );
+      let proposalIDlast = await (
+        await dAO.connect(owner).proposalID()
+      ).toString();
+      await expect(await proposalIDlast).to.be.equal("1");
+    });
 
-  it("Checks the voting function in the DAO Project", async () => {
-    await expect(dAO.connect(owner).voting(2, 100, true)).to.be.revertedWith(
-      "proposalIDdoesnotexist()"
-    );
-    await expect(
-      dAO.connect(owner).voting(1, 10000, true)
-    ).to.be.revertedWith("insufficentVotingPower()");
-    await expect(dAO.connect(owner).voting(1, 100, true));
-    await expect(
-      dAO.connect(owner).voting(1, 100, true)
-    ).to.be.revertedWith("alreadyVoted()");
-
-    // let voterproposalRecord = await dAO
-    //   .connect(owner)
-    //   .Voter[owner.address].toString();
-    // let proposalIDlast = await dAO.connect(owner).proposalID();
-
-    // console.log(voterproposalRecord);
-    // console.log(proposalIDlast);
-    // await expect(await proposalIDlast).to.be.equal(1);
+    
   });
-});
-
 });
