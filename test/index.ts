@@ -80,10 +80,10 @@ describe("Testing the DAO Project Contract", () => {
           name: "updatevalueoftemp",
           outputs: [
             {
-              "internalType": "uint256",
-              "name": "temporary",
-              "type": "uint256"
-              }
+              internalType: "uint256",
+              name: "temporary",
+              type: "uint256",
+            },
           ],
           stateMutability: "nonpayable",
           type: "function",
