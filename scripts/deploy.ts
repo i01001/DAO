@@ -22,15 +22,12 @@ async function main() {
 
   console.log("DAOToken deployed to:", dAOToken.address);
 
-
   const DAOProject = await ethers.getContractFactory("DAOProject");
   const dAOProject = await DAOProject.deploy();
 
   await dAOProject.deployed();
 
   console.log("DAOProject deployed to:", dAOProject.address);
-
-
 
   const TestCalldata = await ethers.getContractFactory("TestCalldata");
   const testCalldata = await TestCalldata.deploy();

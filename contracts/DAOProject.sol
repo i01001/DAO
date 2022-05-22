@@ -4,7 +4,9 @@ pragma solidity ^0.8.14;
 
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "./DAO_Token.sol";
+import "./DAOToken.sol";
+import "hardhat/console.sol";
+
 
 error approvalForDAOreq();
 error waitforProposalEnd(uint256);

@@ -27,7 +27,7 @@ dotenv.config();
 let ALCHEMY_KEY = process.env.ALCHEMY_KEY;
 
 const config: HardhatUserConfig = {
-  solidity: "0.8.13",
+  solidity: "0.8.14",
   networks: {
     hardhat: {
       allowUnlimitedContractSize: true,

@@ -2,6 +2,8 @@
 
 pragma solidity ^0.8.14;
 
+import "hardhat/console.sol";
+
 contract TestCalldata {
     event status(uint256 _temp);
 
