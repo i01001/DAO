@@ -120,6 +120,19 @@ describe("Testing the DAO Project Contract", () => {
         await dAO.connect(owner).proposalID()
       ).toString();
       await expect(await proposalIDlast).to.be.equal("1");
+      const voter = await dAO.Voter(owner.address);
+      const proposal = await dAO.Proposal(1);
+      let time1: any;
+      let time2: any;
+      let time3: any;
+      let timesum: any;
+      time1 = await (await dAO.debatingPeriodDuration());
+      time2 = await proposal.startTime;
+      time3 = await voter.endTime;
+      timesum = (time3) - time1;
+      await expect(timesum).to.be.equal(time2);
+
+      
     });
 
     it("Checks the endProposal function in the DAO Project", async () => {
@@ -129,8 +142,8 @@ describe("Testing the DAO Project Contract", () => {
       await expect(dAO.connect(owner).endProposal(1)).to.be.reverted;
       evm_increaseTime(3600);
       await expect(dAO.connect(owner).endProposal(1)).not.reverted;
-      
-
+      const proposal = await dAO.Proposal(1);
+      await expect(await proposal.status).to.be.equal(3);
     });
   });
 });
