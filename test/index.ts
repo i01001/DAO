@@ -51,6 +51,14 @@ describe("Testing the DAO Project Contract", () => {
       await dAOT.connect(owner).mint(owner.address, 10000);
       expect(await dAOT.balanceOf(owner.address)).to.be.equal(10000);
     });
+  });
+
+  describe("Checking DAO Token Contract deposit is working correctly", () => {
+    it("Checks the deposit function into the DAO", async () => {
+      expect(await dAO.connect(owner).deposit(100)).to.be.revertedWith("approvalForDAOreq()");
+      // expect(await dAOT.balanceOf(owner.address)).to.be.equal(10000);
+    });
+  })
 
     // it("Checks the mint function of the TNETH Contract is working correctly or not", async () => {
     //   await tNETH.mint(owner.address, 1000);
@@ -70,5 +78,5 @@ describe("Testing the DAO Project Contract", () => {
     //   expect(bC.connect(owner).includeToken(0, signertwo.address)).to.be.reverted;
     //   expect(bC.connect(owner).includeToken(31337, tNETH.address)).to.be.revertedWith("true");
     // })
-  });
+ 
 });
