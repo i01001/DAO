@@ -68,7 +68,7 @@ describe("Testing the DAO Project Contract", () => {
       await expect(dAO.connect(owner).withdraw(10000)).to.be.revertedWith(
         "amountGreaterthanBalance(10000, 1000)"
       );
-      await expect(dAO.connect(owner).withdraw(100));
+      await expect(await dAO.connect(owner).withdraw(100));
       await expect(await dAOT.balanceOf(owner.address)).to.be.equal(9100);
       await expect(await dAOT.balanceOf(dAO.address)).to.be.equal(900);
     });
@@ -102,7 +102,7 @@ describe("Testing the DAO Project Contract", () => {
       await expect(
         dAO.connect(owner).newProposal(calldata, testCall.address, description)
       );
-      await expect(await dAO.proposalID).to.be.equal(1);
+      await expect(await dAO.proposalID()).to.be.equal(1);
     });
   });
 
