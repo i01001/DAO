@@ -102,7 +102,7 @@ describe("Testing the DAO Project Contract", () => {
       await expect(
         dAO.connect(owner).newProposal(calldata, testCall.address, description)
       );
-      await expect(await dAO.proposalID()).to.be.equal(1);
+      await expect(await dAO.connect(owner).proposalID()).to.be.equal(1);
     });
   });
 
