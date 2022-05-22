@@ -122,6 +122,26 @@ describe("Testing the DAO Project Contract", () => {
       await expect(await proposalIDlast).to.be.equal("1");
     });
 
-    
+    it("Checks the endProposal function in the DAO Project", async () => {
+      await expect(dAO.connect(owner).endProposal(2)).to.be.revertedWith(
+        "proposalIDdoesnotexist()"
+      );
+      await expect(dAO.connect(owner).endProposal(1)).to.be.revertedWith(
+        "waitforProposalEndTime()"
+      );
+      await expect(
+        dAO.connect(owner).voting(1, 10000, true)
+      ).to.be.revertedWith("insufficentVotingPower()");
+      await expect(dAO.connect(owner).voting(1, 100, true));
+      await expect(dAO.connect(owner).voting(1, 100, true)).to.be.revertedWith(
+        "alreadyVoted()"
+      );
+      let proposalIDlast = await (
+        await dAO.connect(owner).proposalID()
+      ).toString();
+      await expect(await proposalIDlast).to.be.equal("1");
+    });
+
+
   });
 });
