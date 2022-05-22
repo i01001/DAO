@@ -111,11 +111,11 @@ describe("Testing the DAO Project Contract", () => {
       "proposalIDdoesnotexist()"
     );
     await expect(
-      await dAO.connect(owner).voting(1, 10000, true)
+      dAO.connect(owner).voting(1, 10000, true)
     ).to.be.revertedWith("insufficentVotingPower()");
-    await expect(await dAO.connect(owner).voting(1, 100, true));
+    await expect(dAO.connect(owner).voting(1, 100, true));
     await expect(
-      await dAO.connect(owner).voting(1, 100, true)
+      dAO.connect(owner).voting(1, 100, true)
     ).to.be.revertedWith("alreadyVoted()");
 
     // let voterproposalRecord = await dAO
