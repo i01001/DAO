@@ -4,6 +4,7 @@
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
 import { ethers } from "hardhat";
+import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
@@ -14,6 +15,10 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
+  let owner: SignerWithAddress,
+    signertwo: SignerWithAddress,
+    signerthree: SignerWithAddress;
+  [owner, signertwo, signerthree] = await ethers.getSigners();
 
   const DAOToken = await ethers.getContractFactory("DAOToken");
   const dAOToken = await DAOToken.deploy();
@@ -23,7 +28,12 @@ async function main() {
   console.log("DAOToken deployed to:", dAOToken.address);
 
   const DAOProject = await ethers.getContractFactory("DAOProject");
-  const dAOProject = await DAOProject.deploy();
+  const dAOProject = await DAOProject.deploy(
+    owner.address,
+    dAOToken.address,
+    40,
+    100
+  );
 
   await dAOProject.deployed();
 
