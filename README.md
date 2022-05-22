@@ -6,6 +6,10 @@ DAO Token Contract: https://rinkeby.etherscan.io/address/0x6c7824059712cf021c069
 
 Test Call Contract: https://rinkeby.etherscan.io/address/0x88a0dd621b87e056d7db03e6a34ed540babc3c4d#code
 
+Visual Call Graph
+
+![Getting Started](Call_Graph_DAO.svg)
+
 This project demonstrates an advanced Hardhat use case, integrating other tools commonly used alongside Hardhat in the ecosystem.
 
 The project comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts. It also comes with a variety of other tools, preconfigured to work with the project code.
