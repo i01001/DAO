@@ -108,7 +108,7 @@ describe("Testing the DAO Project Contract", () => {
 
   it("Checks the voting function in the DAO Project", async () => {
     await expect(dAO.connect(owner).voting(2, 100, true)).to.be.revertedWith(
-      "proposalIDdoesnotexist())"
+      "proposalIDdoesnotexist()"
     );
     await expect(
       await dAO.connect(owner).voting(1, 10000, true)
@@ -121,13 +121,10 @@ describe("Testing the DAO Project Contract", () => {
     // let voterproposalRecord = await dAO
     //   .connect(owner)
     //   .Voter[owner.address].toString();
-    let proposalIDlast = await dAO.connect(owner).proposalID();
+    // let proposalIDlast = await dAO.connect(owner).proposalID();
 
     // console.log(voterproposalRecord);
-    console.log(proposalIDlast);
-    await expect(await proposalIDlast).to.be.equal(1);
-
-    
+    // console.log(proposalIDlast);
+    // await expect(await proposalIDlast).to.be.equal(1);
+  });
 });
-
-})
