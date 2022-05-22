@@ -120,6 +120,7 @@ describe("Testing the DAO Project Contract", () => {
         await dAO.connect(owner).proposalID()
       ).toString();
       await expect(await proposalIDlast).to.be.equal("1");
+
       const voter = await dAO.Voter(owner.address);
       const proposal = await dAO.Proposal(1);
       let time1: any;
@@ -133,6 +134,7 @@ describe("Testing the DAO Project Contract", () => {
       await expect(timesum).to.be.equal(time2);
 
       
+
     });
 
     it("Checks the endProposal function in the DAO Project", async () => {
