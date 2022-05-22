@@ -133,7 +133,7 @@ describe("Testing the DAO Project Contract", () => {
       timesum = (time3) - time1;
       await expect(timesum).to.be.equal(time2);
 
-      
+      await expect(proposal.FORvotes).to.be.equal(100);
 
     });
 
