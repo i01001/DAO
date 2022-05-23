@@ -180,7 +180,7 @@ describe("Testing the DAO Project Contract", () => {
         await dAO.connect(owner).proposalID()
       ).toString();
       await expect(await proposalIDlast).to.be.equal("2");
-      await dAO.connect(owner).voting(2, 200, false);
+      // await dAO.connect(owner).voting(2, 200, false);
       const voter = await dAO.Voter(owner.address);
       const proposal2 = await dAO.Proposal(2);
 
