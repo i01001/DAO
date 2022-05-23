@@ -192,7 +192,7 @@ describe("Testing the DAO Project Contract", () => {
       await dAO.connect(owner).endProposal(2);
       const status2 = await proposal2.status;
       console.log(status2);
-      await expect(await proposal2.status).to.be.equal(2);
+      expect(proposal2.status).to.be.equal(2);
       await expect(await testCall.temporary()).to.be.equal(100);
     });
   });
