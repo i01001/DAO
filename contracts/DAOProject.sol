@@ -29,6 +29,9 @@ error noVotes();
 contract DAOProject {
     using Counters for Counters.Counter;
 
+    /// @notice Allows users to create NFT,list them or auction them.
+    /// @dev Additional features can be added such as batch minting
+    /// @notice Counters are used for couting the listed items, sold, auction items and sold respectively.
     address public chairPerson;
     address public voteToken;
     uint256 public minimumQuorum;
