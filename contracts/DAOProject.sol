@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "./DAOToken.sol";
 import "hardhat/console.sol";
 
-
+/// @dev All error codes generated within the contract
 error approvalForDAOreq();
 error waitforProposalEnd(uint256);
 error amountGreaterthanBalance(uint256, uint256);
@@ -21,6 +21,11 @@ error proposalIDdoesnotexist();
 error onlyChairPerson();
 error noVotes();
 
+/// @title DAO Project Contract for submitting proposals, voting it and executing functions within other contract based on proposals 
+/// @author Ikhlas
+/// @notice The contract does not have the front end implemented
+/// @dev All function calls are currently implemented without side effects
+/// @custom:experimental This is an experimental contract.
 contract DAOProject {
     using Counters for Counters.Counter;
 
