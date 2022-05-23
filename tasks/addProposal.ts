@@ -6,8 +6,8 @@ import "@nomiclabs/hardhat-waffle";
 // import "solidity-coverage";
 // import "@nomiclabs/hardhat-web3";
 
-task("addProposal", "Mint tokens on Market Place")
-  .addParam("bool", "NFT Type True for NFT1155 / False for NFT721")
+task("addProposal", "Add Proposal to DAO")
+  .addParam("bytes", "Call ")
   .addParam("tokenuri", "TokenURI to be added")
   .addParam("amountfornft1155", "Amount for NFT1155")
 
