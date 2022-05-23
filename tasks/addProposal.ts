@@ -7,9 +7,9 @@ import "@nomiclabs/hardhat-waffle";
 // import "@nomiclabs/hardhat-web3";
 
 task("addProposal", "Add Proposal to DAO")
-  .addParam("bytes", "Call ")
-  .addParam("tokenuri", "TokenURI to be added")
-  .addParam("amountfornft1155", "Amount for NFT1155")
+  .addParam("calldata", "Call Data for the Function")
+  .addParam("recipient", "Address for the Contract to be executed")
+  .addParam("description", "Description of the function")
 
   .setAction(async (taskArgs, hre) => {
     const [sender, secondaccount, thirdaccount, fourthaccount] =
