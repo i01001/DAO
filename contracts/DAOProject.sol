@@ -21,7 +21,7 @@ error proposalIDdoesnotexist();
 error onlyChairPerson();
 error noVotes();
 
-/// @title DAO Project Contract for submitting proposals, voting it and executing functions within other contract based on proposals 
+/// @title DAO Project Contract for submitting proposals, voting it and executing functions within other contract based on proposals
 /// @author Ikhlas
 /// @notice The contract does not have the front end implemented
 /// @dev All function calls are currently implemented without side effects
@@ -29,17 +29,30 @@ error noVotes();
 contract DAOProject {
     using Counters for Counters.Counter;
 
-    /// @notice Allows users to create NFT,list them or auction them.
-    /// @dev Additional features can be added such as batch minting
-    /// @notice Counters are used for couting the listed items, sold, auction items and sold respectively.
+    /// @notice Variables for the contract
+    /// @param chairPerson - person who can initate proposals
+    /// @param voteToken - address of the DAO Token
+    /// @param minimumQuorum - percentage minimum with respect to totalVotingPower
+    /// @param debatingPeriodDuration - minimum duration for the proposal
+    /// @param totalVotingPower - total amount of tokens deposited in the DAO
     address public chairPerson;
     address public voteToken;
     uint256 public minimumQuorum;
     uint256 public debatingPeriodDuration;
     uint256 public totalVotingPower;
 
+    /// @param proposalID - counter for the proposals
     Counters.Counter public proposalID;
 
+    /// @notice proposal struct to store information
+    /// @param id - proposal id
+    /// @param status - status of the proposal
+    /// @param FORvotes - votes in favour of
+    /// @param AGAINSTvotes - votes against
+    /// @param startTime - block time stamp at the time of creating proposal
+    /// @param callData - the function signature to be executed if proposal approved
+    /// @param recipient - the Contract address where the callData function is
+    /// @param description - brief information about the proposal
     struct proposal {
         uint256 id;
         proposalStatus status;
@@ -51,6 +64,11 @@ contract DAOProject {
         string description;
     }
 
+    /// @notice voter struct to store information
+    /// @param votingPower - amount of tokens deposited
+    /// @param endTime - time when last proposal voted / funds frozed until it
+    /// @param endingProposalID - id of the last proposal
+    /// @param voted - mapping of the proposal id with the bool that voting has been done or not
     struct voter {
         uint256 votingPower;
         uint256 endTime;
@@ -58,6 +76,8 @@ contract DAOProject {
         mapping(uint256 => bool) voted;
     }
 
+    /// @notice proposal status - initally none; while in progress it in progress and when completed it
+    /// @notice is either approved or rejected.
     enum proposalStatus {
         NONE,
         INPROGRESS,
@@ -65,11 +85,14 @@ contract DAOProject {
         REJECTED
     }
 
+    /// @notice Proposal mapping - proposal ID with the proposal struct
+    /// @notice Voter mapping - user aaddress to voter struct
     mapping(uint256 => proposal) public Proposal;
     mapping(address => voter) public Voter;
 
     event percentage(uint256 _percentq, uint256 _percentfor);
 
+    /// @notice initiation of values with in the constructor
     constructor(
         address _chairPerson,
         address _voteToken,
@@ -82,6 +105,7 @@ contract DAOProject {
         debatingPeriodDuration = _debatingPeriodDuration;
     }
 
+    /// @notice deposit adds funds to the DAO. Require that the user does "approve" for the DAO to carryout this function
     function deposit(uint256 _amount) public {
         try
             DAOToken(voteToken)._transferFrom(
@@ -97,6 +121,7 @@ contract DAOProject {
         }
     }
 
+    /// @notice withdraw funds; funds are frozed until voted proposals have not been closed
     function withdraw(uint256 _amount) public {
         if (_amount > Voter[msg.sender].votingPower)
             revert amountGreaterthanBalance(
@@ -114,6 +139,7 @@ contract DAOProject {
         DAOToken(voteToken)._transfer(msg.sender, _amount);
     }
 
+    /// @notice newProposal iniation can be done by Chair person only. Need to provide the call data, recipient and also a description.
     function newProposal(
         bytes calldata _callData,
         address _recipient,
@@ -133,6 +159,7 @@ contract DAOProject {
         );
     }
 
+    /// @notice voting on proposals that are open; can only vote one time in each proposal
     function voting(
         uint256 _proposalID,
         uint256 _amount,
@@ -156,6 +183,8 @@ contract DAOProject {
         }
     }
 
+    /// @notice endProposal finishes of the proposal provided the predifined time has been completed. Decision of acceptance of
+    /// @notice proposal requires the minimum minimumQuorum and majority of FOR votes is required. If approved the calldata is executed
     function endProposal(uint256 _proposalID) public {
         if (_proposalID > proposalID.current()) revert proposalIDdoesnotexist();
         if (Proposal[_proposalID].status != proposalStatus.INPROGRESS)
