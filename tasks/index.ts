@@ -12,5 +12,5 @@ import "@nomiclabs/hardhat-web3";
 import { ethers } from "hardhat";
 
 import './accounts.ts';
-// import './swap.ts';
-// import './redeem.ts';
+import './swap.ts';
+import './redeem.ts';
