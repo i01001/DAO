@@ -30,18 +30,18 @@ contract DAOProject {
     using Counters for Counters.Counter;
 
     /// @notice Variables for the contract
-    /// @param chairPerson - person who can initate proposals
-    /// @param voteToken - address of the DAO Token
-    /// @param minimumQuorum - percentage minimum with respect to totalVotingPower
-    /// @param debatingPeriodDuration - minimum duration for the proposal
-    /// @param totalVotingPower - total amount of tokens deposited in the DAO
+    /// @notice chairPerson - person who can initate proposals
+    /// @notice voteToken - address of the DAO Token
+    /// @notice minimumQuorum - percentage minimum with respect to totalVotingPower
+    /// @notice debatingPeriodDuration - minimum duration for the proposal
+    /// @notice totalVotingPower - total amount of tokens deposited in the DAO
     address public chairPerson;
     address public voteToken;
     uint256 public minimumQuorum;
     uint256 public debatingPeriodDuration;
     uint256 public totalVotingPower;
 
-    /// @param proposalID - counter for the proposals
+    /// @notice proposalID - counter for the proposals
     Counters.Counter public proposalID;
 
     /// @notice proposal struct to store information
